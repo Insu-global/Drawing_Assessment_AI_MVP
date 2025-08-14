@@ -10,9 +10,16 @@ const UploadPage = () => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'application/pdf'];
+      const maxSize = 100 * 1024 * 1024; // 100MB
+      
       if (allowedTypes.includes(selectedFile.type)) {
-        setFile(selectedFile);
-        setMessage('');
+        if (selectedFile.size <= maxSize) {
+          setFile(selectedFile);
+          setMessage('');
+        } else {
+          setMessage('File size must be less than 100MB.');
+          setFile(null);
+        }
       } else {
         setMessage('Please select a valid image or PDF file.');
         setFile(null);
@@ -33,7 +40,7 @@ const UploadPage = () => {
     formData.append('file', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/upload', formData, {
+      const response = await axios.post('http://localhost:3001/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -53,7 +60,7 @@ const UploadPage = () => {
     <div className="upload-page">
       <div className="upload-container">
         <h2>Upload File</h2>
-        <p>Select an image or PDF file to upload</p>
+        <p>Select an image or PDF file to upload (max 100MB)</p>
         
         <div className="file-input-container">
           <input

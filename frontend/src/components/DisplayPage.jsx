@@ -9,7 +9,7 @@ const DisplayPage = () => {
   const fetchFiles = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/files');
+      const response = await axios.get('http://localhost:3001/files');
       setFiles(response.data);
       setError('');
     } catch (err) {
@@ -68,11 +68,11 @@ const DisplayPage = () => {
               <div key={file.filename} className="file-card">
                 <div className="file-preview">
                   {isImage(file.filename) ? (
-                    <img
-                      src={`http://localhost:5000${file.path}`}
-                      alt={file.filename}
-                      className="file-image"
-                    />
+                                         <img
+                       src={`http://localhost:3001${file.path}`}
+                       alt={file.filename}
+                       className="file-image"
+                     />
                   ) : isPDF(file.filename) ? (
                     <div className="pdf-preview">
                       <div className="pdf-icon">📄</div>
@@ -89,12 +89,12 @@ const DisplayPage = () => {
                 </div>
 
                 <div className="file-actions">
-                  <a
-                    href={`http://localhost:5000${file.path}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="view-btn"
-                  >
+                                     <a
+                     href={`http://localhost:3001${file.path}`}
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="view-btn"
+                   >
                     View
                   </a>
                 </div>
